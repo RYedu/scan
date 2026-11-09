@@ -432,7 +432,11 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   }
   main { max-width: 560px; margin: 0 auto; padding: 20px 16px 40px; }
   h1 { font-size: 1.5rem; margin: 8px 0 4px; }
-  p.sub { margin: 0 0 20px; color: var(--muted); }
+  p.sub { margin: 0 0 12px; color: var(--muted); }
+  ol.steps { margin: 0 0 20px; padding-left: 22px; color: var(--text); }
+  ol.steps li { margin: 4px 0; }
+  #hint { margin: 14px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); color: var(--text); display: none; }
+  .optnote { margin: -6px 0 12px 30px; font-size: 0.85rem; color: var(--muted); }
   .actions { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
   button, label.btn {
     font: inherit; font-weight: 600; border-radius: 12px; padding: 14px 12px;
@@ -451,7 +455,8 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   .page .tools .del { color: var(--danger); }
   .opt { display: flex; align-items: center; gap: 10px; margin: 16px 0 12px; color: var(--muted); }
   .opt input { width: 20px; height: 20px; }
-  #save { width: 100%; font-size: 1.05rem; padding: 16px; }
+  #save, #email { width: 100%; font-size: 1.05rem; padding: 16px; }
+  #email { margin-top: 10px; }
   #msg { min-height: 1.4em; margin-top: 12px; color: var(--muted); text-align: center; }
   .empty { text-align: center; color: var(--muted); padding: 36px 0; border: 2px dashed var(--border); border-radius: 12px; margin: 20px 0; }
 </style>
@@ -459,21 +464,30 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 <body>
 <main>
   <h1>Scan to PDF</h1>
-  <p class="sub">Take photos of your pages, then save them as one A4 PDF.</p>
+  <p class="sub">Turn photos of paper pages into one A4 PDF. Nothing is uploaded; it all stays on your device.</p>
+  <ol class="steps">
+    <li>Tap <b>Scan a page</b> and take a photo of the page. Lay it flat, in good light, and fill the screen with the page.</li>
+    <li>For a document with more than one page, tap <b>Scan another page</b> each time. Pages are added in order.</li>
+    <li>Check the thumbnails. Use the arrows to change the order, or Delete to remove a page.</li>
+    <li>When all pages are added, tap <b>Email PDF</b> to send it, or <b>Save PDF to this device</b> to keep a copy.</li>
+  </ol>
 
   <div class="actions">
-    <label class="btn primary" for="cam">Scan a page</label>
-    <label class="btn" for="gal">Choose photos</label>
+    <label id="camLabel" class="btn primary" for="cam">Scan a page</label>
+    <label id="galLabel" class="btn" for="gal">Choose photos</label>
   </div>
   <input id="cam" type="file" accept="image/*" capture="environment">
   <input id="gal" type="file" accept="image/*" multiple>
 
-  <div id="empty" class="empty">No pages yet</div>
+  <div id="empty" class="empty">No pages yet. Tap Scan a page to start.</div>
+  <div id="hint"></div>
   <div id="pages" class="pages"></div>
 
-  <label class="opt"><input id="clean" type="checkbox" checked> Clean up (whiter paper, darker text)</label>
+  <label class="opt"><input id="clean" type="checkbox"> Black and white clean up (optional)</label>
+  <div class="optnote">Leave this unticked to keep full colour. If you want black and white, tick it before you scan; it applies to pages you add after ticking.</div>
 
-  <button id="save" class="primary" disabled>Save as A4 PDF</button>
+  <button id="email" class="primary" disabled>Email PDF</button>
+  <button id="save" disabled>Save PDF to this device</button>
   <div id="msg" role="status"></div>
 </main>
 
@@ -481,7 +495,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 (function () {
   var pages = [];            // array of {url, data} where data is a JPEG data URL
   var $ = function (id) { return document.getElementById(id); };
-  var pagesEl = $("pages"), emptyEl = $("empty"), saveBtn = $("save"), msgEl = $("msg");
+  var pagesEl = $("pages"), emptyEl = $("empty"), saveBtn = $("save"), emailBtn = $("email"), msgEl = $("msg");
 
   function say(t) { msgEl.textContent = t || ""; }
 
@@ -550,7 +564,18 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     });
     emptyEl.style.display = pages.length ? "none" : "block";
     saveBtn.disabled = pages.length === 0;
-    saveBtn.textContent = pages.length > 1 ? "Save " + pages.length + " pages as A4 PDF" : "Save as A4 PDF";
+    emailBtn.disabled = pages.length === 0;
+    saveBtn.textContent = pages.length > 1 ? "Save PDF (" + pages.length + " pages) to this device" : "Save PDF to this device";
+    emailBtn.textContent = pages.length > 1 ? "Email PDF (" + pages.length + " pages)" : "Email PDF";
+    $("camLabel").textContent = pages.length ? "Scan another page" : "Scan a page";
+    $("galLabel").textContent = pages.length ? "Add more photos" : "Choose photos";
+    var hintEl = $("hint");
+    if (pages.length) {
+      hintEl.style.display = "block";
+      hintEl.textContent = pages.length + (pages.length === 1 ? " page added. " : " pages added. ") + "Tap Scan another page to add more, or use Email PDF or Save PDF when you are done.";
+    } else {
+      hintEl.style.display = "none";
+    }
   }
 
   function move(i, dir) {
@@ -623,6 +648,25 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       say(e && e.code === "declined" ? "Save cancelled" : "Could not save the PDF. Please try again.");
     }
     saveBtn.disabled = false;
+  });
+
+  emailBtn.addEventListener("click", async function () {
+    if (!pages.length) return;
+    emailBtn.disabled = true; say("Building PDF…");
+    var fallback = "Email sharing is not available in this browser. Tap Save PDF to this device, then attach the file to an email.";
+    try {
+      var blob = buildPdf();
+      var file = new File([blob], "scan-" + stamp() + ".pdf", { type: "application/pdf" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: "Scanned document", text: "Scanned document attached." });
+        say("");
+      } else {
+        say(fallback);
+      }
+    } catch (e) {
+      say(e && e.name === "AbortError" ? "Email cancelled" : fallback);
+    }
+    emailBtn.disabled = pages.length === 0;
   });
 
   render();

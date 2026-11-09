@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Scan to PDF</title>
+<meta name="theme-color" content="#0c3044">
+<title>Scan to PDF | Wolsey Hall</title>
 <script>
 /** @license
  *
@@ -407,64 +408,142 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 </script>
 <style>
   :root {
-    --bg: #f5f6f8; --surface: #ffffff; --text: #1b1f27; --muted: #5d6675;
-    --accent: #1f5eff; --accent-text: #ffffff; --border: #d9dde5; --danger: #c62828;
+    /* Wolsey Hall foundations (light) */
+    --bg: #eef4f8;            /* surface-primary-subtle */
+    --surface: #ffffff;       /* surface-primary */
+    --text: #0c3044;          /* content-primary */
+    --muted: #40444a;         /* neutral-4 */
+    --cta: #0c3044;           /* cta-primary */
+    --cta-text: #ffffff;      /* cta-text-primary */
+    --cta-hover: #19628c;     /* cta-primary-hover */
+    --border: #e4eaf1;        /* detail */
+    --border-strong: #0c3044; /* cta-border */
+    --accent: #74b743;        /* accent-primary / actionGreen */
+    --header-bg: #0c3044;
+    --header-text: #ffffff;
+    --note-bg: #f1f8f4;       /* secondaryGreen-1 */
+    --note-border: #ddeee3;   /* secondaryGreen-2 */
+    --note-text: #1a3a2d;     /* secondaryGreen-5 */
+    --danger: #be2323;
+    --focus: #19628c;
     box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #14171c; --surface: #1e232b; --text: #eef0f4; --muted: #9aa3b2;
-      --accent: #5b8cff; --accent-text: #0b1020; --border: #323944; --danger: #ff7b7b;
+      --bg: #0c3044; --surface: #154b6a; --text: #ffffff; --muted: #e4eaf1;
+      --cta: #ffffff; --cta-text: #0c3044; --cta-hover: #eef4f8;
+      --border: #19628c; --border-strong: #ffffff; --accent: #74b743;
+      --header-bg: #154b6a; --header-text: #ffffff;
+      --note-bg: #255742; --note-border: #2d6a4f; --note-text: #f1f8f4;
+      --danger: #ff9a9a; --focus: #eef4f8;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #14171c; --surface: #1e232b; --text: #eef0f4; --muted: #9aa3b2;
-    --accent: #5b8cff; --accent-text: #0b1020; --border: #323944; --danger: #ff7b7b;
+    --bg: #0c3044; --surface: #154b6a; --text: #ffffff; --muted: #e4eaf1;
+    --cta: #ffffff; --cta-text: #0c3044; --cta-hover: #eef4f8;
+    --border: #19628c; --border-strong: #ffffff; --accent: #74b743;
+    --header-bg: #154b6a; --header-text: #ffffff;
+    --note-bg: #255742; --note-border: #2d6a4f; --note-text: #f1f8f4;
+    --danger: #ff9a9a; --focus: #eef4f8;
   }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--header-bg); }
   * { box-sizing: border-box; }
   body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.4;
+    margin: 0; background: var(--bg); color: var(--text); min-height: 100vh;
+    font-family: "Proxima Nova", "Avenir Next", "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.45;
   }
-  main { max-width: 560px; margin: 0 auto; padding: 20px 16px 40px; }
-  h1 { font-size: 1.5rem; margin: 8px 0 4px; }
-  p.sub { margin: 0 0 12px; color: var(--muted); }
-  ol.steps { margin: 0 0 20px; padding-left: 22px; color: var(--text); }
-  ol.steps li { margin: 4px 0; }
-  #hint { margin: 14px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); color: var(--text); display: none; }
-  .optnote { margin: -6px 0 12px 30px; font-size: 0.85rem; color: var(--muted); }
+  .serif { font-family: "Libre Baskerville", Baskerville, "Baskerville Old Face", "Palatino Linotype", Georgia, serif; }
+
+  header.brand {
+    background: var(--header-bg); color: var(--header-text);
+    border-bottom: 4px solid var(--accent);
+    padding: calc(env(safe-area-inset-top, 0px) + 22px) 16px 22px;
+  }
+  .brand-inner { max-width: 560px; margin: 0 auto; display: flex; align-items: center; gap: 16px; }
+  .brand-inner .logo { width: 64px; height: 64px; flex: none; color: var(--header-text); }
+  .brand-text { min-width: 0; }
+  .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9; }
+  header h1 { font-size: 1.9rem; line-height: 1.2; font-weight: 400; margin: 6px 0 6px; }
+  header p { margin: 0; opacity: 0.92; }
+
+  main { max-width: 560px; margin: 0 auto; padding: 22px 16px 28px; }
+  h2.how { font-size: 1.05rem; font-weight: 600; margin: 0 0 8px; }
+  ol.steps { margin: 0 0 22px; padding-left: 22px; }
+  ol.steps li { margin: 6px 0; }
+  ol.steps li::marker { font-weight: 700; color: var(--text); }
+
   .actions { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
   button, label.btn {
-    font: inherit; font-weight: 600; border-radius: 12px; padding: 14px 12px;
-    border: 1px solid var(--border); background: var(--surface); color: var(--text);
-    cursor: pointer; text-align: center; display: block;
+    font: inherit; font-weight: 600; border-radius: 10px; padding: 14px 12px;
+    border: 2px solid var(--border-strong); background: var(--surface); color: var(--text);
+    cursor: pointer; text-align: center; display: block; transition: background 0.15s, color 0.15s;
   }
-  button.primary, label.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+  button.primary, label.primary { background: var(--cta); color: var(--cta-text); border-color: var(--cta); }
+  button.primary:hover:not(:disabled), label.primary:hover { background: var(--cta-hover); border-color: var(--cta-hover); color: #ffffff; }
+  button:focus-visible, label.btn:focus-within, input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
   button:disabled { opacity: 0.45; cursor: not-allowed; }
   input[type=file] { display: none; }
-  .pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin: 20px 0; }
+
+  #hint { margin: 16px 0 0; padding: 12px 14px; border-radius: 10px; background: var(--note-bg); border: 1px solid var(--note-border); color: var(--note-text); display: none; }
+  .empty { text-align: center; color: var(--muted); padding: 34px 0; border: 2px dashed var(--border); border-radius: 12px; margin: 20px 0; background: var(--surface); }
+
+  .pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin: 18px 0; }
   .page { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 6px; }
   .page img { width: 100%; aspect-ratio: 210 / 297; object-fit: contain; background: #fff; border-radius: 6px; display: block; }
-  .page .num { position: absolute; left: 10px; top: 10px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.75rem; padding: 2px 7px; border-radius: 99px; }
+  .page .num { position: absolute; left: 10px; top: 10px; background: #0c3044; color: #fff; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
   .page .tools { display: flex; gap: 6px; margin-top: 6px; }
-  .page .tools button { flex: 1; padding: 6px 0; font-size: 0.85rem; border-radius: 8px; }
+  .page .tools button { flex: 1; padding: 6px 0; font-size: 0.85rem; border-radius: 8px; border-width: 1px; border-color: var(--border); }
   .page .tools .del { color: var(--danger); }
-  .opt { display: flex; align-items: center; gap: 10px; margin: 16px 0 12px; color: var(--muted); }
-  .opt input { width: 20px; height: 20px; }
+
+  .opt { display: flex; align-items: center; gap: 10px; margin: 18px 0 6px; font-weight: 600; }
+  .opt input { width: 20px; height: 20px; accent-color: #19628c; }
+  .optnote { margin: 0 0 16px 30px; font-size: 0.85rem; color: var(--muted); }
+
   #save, #email { width: 100%; font-size: 1.05rem; padding: 16px; }
   #email { margin-top: 10px; }
   #msg { min-height: 1.4em; margin-top: 12px; color: var(--muted); text-align: center; }
-  .empty { text-align: center; color: var(--muted); padding: 36px 0; border: 2px dashed var(--border); border-radius: 12px; margin: 20px 0; }
+
+  footer { max-width: 560px; margin: 0 auto; padding: 8px 16px 32px; text-align: center; font-size: 0.85rem; color: var(--muted); }
+  footer strong { color: var(--text); font-weight: 600; }
 </style>
 </head>
 <body>
+<header class="brand">
+  <div class="brand-inner">
+    <svg class="logo" viewBox="0 0 300 300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wolsey Hall logo">
+<path d="M154.238 187.45C164.803 187.45 173.367 178.796 173.367 168.121C173.367 157.446 164.803 148.792 154.238 148.792C143.673 148.792 135.109 157.446 135.109 168.121C135.109 178.796 143.673 187.45 154.238 187.45Z"/>
+<path d="M92.866 166.712C144.874 208.188 165 207.786 216.409 166.51C218.801 164.497 220.594 163.692 222.587 165.504L223.185 166.108C224.978 167.517 224.978 169.933 223.583 171.947L222.387 173.759C215.612 183.222 207.443 191.477 198.874 199.128L196.284 201.544C189.509 207.785 184.328 216.242 181.937 225.302C180.741 229.732 179.944 234.967 179.944 240.403V281.074C179.944 285.101 178.35 289.128 175.76 292.147C172.173 295.973 165.796 300 154.837 300H154.439C143.479 300 137.102 295.973 133.516 292.147C130.726 289.128 129.331 285.302 129.331 281.074V240.403C129.331 234.765 128.534 229.732 127.339 225.302C124.947 216.242 119.567 208.188 112.792 201.947L110.202 199.53C101.633 191.678 93.8623 183.02 86.888 173.759L85.6923 171.947C84.2976 170.134 84.0982 167.92 85.8917 166.309L86.888 165.504C86.888 165.504 89.0799 163.49 93.2644 166.913L92.866 166.712Z"/>
+<path d="M255.864 105.705C255.864 105.705 227.567 113.356 228.563 136.309C228.563 136.309 230.954 139.128 237.132 139.933C247.096 141.342 261.641 137.919 270.808 124.228C280.173 110.537 284.756 86.9799 284.756 86.9799C284.756 86.9799 277.384 93.0202 258.452 92.6175C239.523 92.2147 223.382 96.4428 224.578 121.611C224.578 121.611 232.15 109.128 255.663 105.705H255.864Z"/>
+<path d="M71.5447 63.0202C71.5447 63.0202 102.231 66.2417 105.021 90.2014C105.021 90.2014 103.028 93.6242 96.8511 95.4362C86.6886 98.4564 71.1462 97.4496 59.1903 84.7651C47.2345 72.0806 38.467 48.5234 38.467 48.5234C38.467 48.5234 47.2345 53.557 66.7624 49.933C86.2902 46.3087 104.025 47.9194 106.814 74.2954C106.814 74.2954 96.8511 62.6174 71.7441 63.0202H71.5447Z"/>
+<path d="M146.667 92.6174C146.667 92.6174 170.977 108.121 163.405 129.262C163.405 129.262 160.416 131.275 154.438 130.268C144.674 128.658 132.32 121.007 127.538 105.503C122.755 90 125.346 66.6442 125.346 66.6442C125.346 66.6442 130.527 74.4965 148.261 79.7316C165.996 84.7651 179.944 93.624 171.375 116.778C171.375 116.778 167.988 102.886 146.866 92.6174H146.667Z"/>
+<path d="M118.172 25.3687C118.172 25.3687 139.493 35.4357 135.508 53.3551C135.508 53.3551 133.316 55.1673 128.335 54.966C120.364 54.5633 109.404 49.7311 103.825 37.6505C98.445 25.5701 98.0465 6.24109 98.0465 6.24109C98.0465 6.24109 103.028 12.08 117.973 14.4961C132.918 16.7109 145.272 22.5498 140.689 42.2813C140.689 42.2813 136.504 31.4088 118.371 25.3687H118.172Z"/>
+<path d="M179.744 30C179.744 30 154.239 48.9262 164.202 71.6779C164.202 71.6779 167.789 73.6913 174.165 72.0806C184.726 69.4632 197.877 60.2014 202.062 42.8858C206.047 25.3692 201.663 0 201.663 0C201.663 0 196.482 9.06041 177.353 16.1074C158.224 23.1544 143.478 33.8256 154.637 58.5907C154.637 58.5907 157.427 43.0872 179.744 30.2014V30Z"/>
+<path d="M201.863 108.926C201.863 108.926 183.531 118.792 187.715 135.101C187.715 135.101 189.708 136.712 194.092 136.51C201.265 135.906 210.631 131.275 215.014 120C219.398 108.725 219 91.2082 219 91.2082C219 91.2082 214.815 96.6444 201.664 99.2618C188.512 101.879 177.951 107.316 182.734 125.235C182.734 125.235 185.922 115.168 201.863 109.128V108.926Z"/>
+<path d="M192.497 161.275C192.497 161.275 194.888 149.396 204.452 148.993C204.452 148.993 205.648 149.799 206.246 152.416C207.043 156.443 206.246 162.483 200.667 166.711C195.286 170.94 185.522 173.758 185.522 173.758C185.522 173.758 187.914 170.537 187.117 162.684C186.32 154.832 187.515 148.188 198.076 147.785C198.076 147.785 193.095 151.208 192.497 161.074V161.275Z"/>
+<path d="M118.173 161.275C118.173 161.275 115.782 149.396 106.217 148.993C106.217 148.993 105.022 149.799 104.424 152.416C103.627 156.443 104.424 162.483 110.003 166.711C115.383 170.94 125.147 173.758 125.147 173.758C125.147 173.758 122.756 170.537 123.553 162.684C124.35 155.034 123.155 148.188 112.594 147.785C112.594 147.785 117.575 151.208 118.173 161.074V161.275Z"/>
+<path d="M71.5444 122.215C71.5444 122.215 87.884 135.302 80.9098 150.403C80.9098 150.403 78.5185 151.611 74.334 150.403C67.3599 148.59 58.9907 142.148 56.5996 130.47C54.4077 118.59 57.7952 101.477 57.7952 101.477C57.7952 101.477 60.9835 107.718 73.3377 112.55C85.6921 117.383 95.2568 124.832 87.2862 141.544C87.2862 141.544 85.8912 131.074 71.3451 122.215H71.5444Z"/>
+<path d="M22.9239 107.315C22.9239 107.315 45.6399 114.966 43.8467 134.094C43.8467 134.094 41.8541 136.308 36.8724 136.913C28.7027 137.718 17.1453 134.094 10.1711 122.215C3.19684 110.335 0.207886 90.4025 0.207886 90.4025C0.207886 90.4025 5.98655 95.8387 21.3298 96.2414C36.673 96.6441 49.6253 100.872 47.6327 121.812C47.6327 121.812 42.0532 111.141 23.1232 107.114L22.9239 107.315Z"/>
+<path d="M109.005 116.778C109.005 116.778 123.751 123.825 120.961 136.711C120.961 136.711 119.367 138.121 115.98 137.919C110.401 137.718 102.828 134.295 99.0424 125.637C95.2563 116.98 95.0572 103.289 95.0572 103.289C95.0572 103.289 98.4445 107.517 108.806 109.127C119.168 110.738 127.537 114.765 124.349 128.859C124.349 128.859 121.559 121.007 109.005 116.778Z"/>
+<path d="M240.519 56.7782C240.519 56.7782 214.814 57.9864 211.426 77.718C211.426 77.718 213.021 80.5366 218.002 82.5502C226.172 85.5703 239.323 85.369 249.885 75.503C260.446 65.6374 268.815 46.3085 268.815 46.3085C268.815 46.3085 261.242 50.1341 245.301 46.3085C229.36 42.2815 214.415 42.8856 211.028 64.6306C211.028 64.6306 219.795 55.369 240.718 56.9796L240.519 56.7782Z"/>
+<path d="M269.811 167.919C269.811 167.919 247.694 154.832 234.143 169.53C234.143 169.53 233.944 172.752 237.132 177.181C242.511 184.228 253.471 191.275 267.619 188.658C281.768 186.04 299.102 174.564 299.102 174.564C299.102 174.564 290.734 173.557 279.375 161.476C268.019 149.396 255.264 141.745 240.719 158.054C240.719 158.054 253.074 155.235 269.811 167.919Z"/>
+<path d="M239.125 202.349C239.125 202.349 231.752 188.456 219.995 191.678C219.995 191.678 218.8 193.289 219.198 196.711C219.796 202.148 223.383 209.396 231.553 212.416C239.722 215.638 252.474 215.235 252.474 215.235C252.474 215.235 248.49 212.014 246.298 202.148C244.306 192.282 239.922 184.027 227.169 187.853C227.169 187.853 234.542 190.269 239.125 202.349Z"/>
+<path d="M36.6728 171.342C36.6728 171.342 56.7985 155.235 72.3411 167.92C72.3411 167.92 73.1381 171.141 70.3483 175.973C66.1638 183.826 56.0013 192.282 41.6545 191.678C27.3075 191.074 8.37738 182.014 8.37738 182.014C8.37738 182.014 16.5472 180 26.1119 166.309C35.6765 152.618 47.2338 143.356 63.9719 157.45C63.9719 157.45 51.4183 156.242 36.4735 171.141L36.6728 171.342Z"/>
+<path d="M67.5595 210C67.5595 210 72.541 192.281 86.6889 193.087C86.6889 193.087 88.4821 194.697 88.8806 198.523C89.6778 204.765 87.2865 214.026 78.9174 219.664C70.349 225.301 55.8029 228.12 55.8029 228.12C55.8029 228.12 59.589 223.489 59.589 211.61C59.589 199.731 62.1794 189.462 77.7218 190.469C77.7218 190.469 69.9506 195.1 67.5595 210Z"/>
+<path d="M105.818 216.846C105.818 216.846 103.228 207.785 96.054 208.188C96.054 208.188 95.257 208.993 94.8585 211.007C94.4598 214.228 95.6555 218.859 100.039 221.879C104.423 224.899 111.796 226.309 111.796 226.309C111.796 226.309 109.803 223.893 109.803 217.852C109.803 211.812 108.408 206.577 100.438 206.98C100.438 206.98 104.423 209.396 105.619 217.047L105.818 216.846Z"/>
+<path d="M205.848 218.456C205.848 218.456 206.047 207.584 214.417 205.973C214.417 205.973 215.612 206.577 216.409 208.792C217.804 212.215 217.804 217.852 213.819 222.282C209.833 226.711 201.863 230.537 201.863 230.537C201.863 230.537 203.457 227.316 201.664 220.671C199.87 213.826 200.07 207.584 209.036 205.973C209.036 205.973 205.25 209.799 206.047 218.658L205.848 218.456Z"/>
+</svg>
+    <div class="brand-text">
+      <div class="eyebrow">Wolsey Hall</div>
+      <h1 class="serif">Scan to PDF</h1>
+      <p>Turn photos of paper pages into one A4 PDF.</p>
+    </div>
+  </div>
+</header>
+
 <main>
-  <h1>Scan to PDF</h1>
-  <p class="sub">Turn photos of paper pages into one A4 PDF. Nothing is uploaded; it all stays on your device.</p>
+  <h2 class="how">How it works</h2>
   <ol class="steps">
     <li>Tap <b>Scan a page</b> and take a photo of the page. Lay it flat, in good light, and fill the screen with the page.</li>
     <li>For a document with more than one page, tap <b>Scan another page</b> each time. Pages are added in order.</li>
@@ -491,9 +570,14 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   <div id="msg" role="status"></div>
 </main>
 
+<footer>
+  <strong>Wolsey Hall</strong><br>
+  Nothing is uploaded. Your scans stay on your device.
+</footer>
+
 <script>
 (function () {
-  var pages = [];            // array of {url, data} where data is a JPEG data URL
+  var pages = [];            // array of {data, w, h} where data is a JPEG data URL
   var $ = function (id) { return document.getElementById(id); };
   var pagesEl = $("pages"), emptyEl = $("empty"), saveBtn = $("save"), emailBtn = $("email"), msgEl = $("msg");
 
@@ -521,7 +605,6 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     ctx.drawImage(img, 0, 0, w, h);
     if (clean) {
       var d = ctx.getImageData(0, 0, w, h), p = d.data, n = p.length;
-      // build a grey histogram to find black and white points
       var hist = new Uint32Array(256), i, g;
       for (i = 0; i < n; i += 4) {
         g = (p[i] * 0.299 + p[i + 1] * 0.587 + p[i + 2] * 0.114) | 0;
@@ -588,7 +671,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
   async function addFiles(fileList) {
     var files = Array.prototype.slice.call(fileList || []);
     if (!files.length) return;
-    say("Processing…");
+    say("Processing\u2026");
     try {
       for (var k = 0; k < files.length; k++) {
         var img = await loadImage(files[k]);
@@ -629,7 +712,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
   saveBtn.addEventListener("click", async function () {
     if (!pages.length) return;
-    saveBtn.disabled = true; say("Building PDF…");
+    saveBtn.disabled = true; say("Building PDF\u2026");
     try {
       var blob = buildPdf();
       var filename = "scan-" + stamp() + ".pdf";
@@ -652,7 +735,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
   emailBtn.addEventListener("click", async function () {
     if (!pages.length) return;
-    emailBtn.disabled = true; say("Building PDF…");
+    emailBtn.disabled = true; say("Building PDF\u2026");
     var fallback = "Email sharing is not available in this browser. Tap Save PDF to this device, then attach the file to an email.";
     try {
       var blob = buildPdf();
